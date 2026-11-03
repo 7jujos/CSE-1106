@@ -1,11 +1,11 @@
-# cse1106-final
+# Project Title
 
-## src
+## Description 
 
-## docs
+## Technologies
 
-## tests
+## How to Run
 
-## data
+## What I Learned
 
-## status.txt
+## Future Improvements
