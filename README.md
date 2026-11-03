@@ -1,6 +1,8 @@
-# Project Title
+# cse1106-final
 
 ## src
+
+## docs
 
 ## tests
 
