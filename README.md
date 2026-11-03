@@ -7,5 +7,3 @@
 ## data
 
 ## status.txt
-
-## Future Improvements
