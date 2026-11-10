@@ -44,7 +44,7 @@ void getReadings(double readings[], int count)
     for (int i = 0; i < count; i++)
     {
         printf("\nEnter reading %d: ", i + 1);
-        scanf("%.2lf", &readings[i]);
+        scanf("%lf", &readings[i]);
     }
 }
 
@@ -59,7 +59,7 @@ void checkReadings(double readings[], int count, double max, double min)
     {
         if (isOutOfRange(readings[i], max, min))
         {
-            printf("Reading %.2lf is out of range.\n", readings[i]);
+            printf("Reading %f is out of range.\n", readings[i]);
         }
         else
         {
