@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-#include <pigpio.h>
+//#include <pigpio.h>
 #define PIN 17
 #define READING_COUNT 5
 
@@ -22,44 +22,44 @@ void getReadings(double readings[], int count)
 
 int isOutOfRange(double readings[], double max, double min, int count, int TempCache[])
 {
-	for (int i = 0; i < count; i++)
-	{
-		if (readings[i] > max)
-		{
-			TempCache[i] = 1;
-			printf("%d\n",TempCache[i]); //t
-		}
+    for (int i = 0; i < count; i++)
+    {
+        if (readings[i] > max)
+        {
+            TempCache[i] = 1;
+            printf("%d\n",TempCache[i]); //t
+        }
         else if (readings[i] < min)
         {
-			TempCache[i] = 2;
-			printf("%d\n",TempCache[i]); //t
-		}
-        
-		else 
-			{TempCache[i] = 0;
-			printf("%d\n",TempCache[i]);} //t
-	}
+            TempCache[i] = 2;
+            printf("%d\n",TempCache[i]); //t
+        }
+
+        else
+        {TempCache[i] = 0;
+            printf("%d\n",TempCache[i]);} //t
+    }
 }
 
 double getMaxMin(double *max,double *min)
 {
-    
+
     printf("Enter maximum temperature: ");
     scanf("%lf", max);
     printf("Enter minimum temperature: ");
     scanf("%lf", min);
-    printf("%lf\n",max);
+    //printf("%lf\n",max);
     return 0;
 }
 
 double tempAvg(double readings[], int count, double avg)
 {
     for (int i = 0; i < count; i++)
-    
-    avg += readings[i];
+
+        avg += readings[i];
     avg/=count;
-    
-    
+
+
     printf("\n avg%lf",avg);
     return avg;
 }
@@ -68,13 +68,13 @@ double tempAvg(double readings[], int count, double avg)
 int main()
 {
 
-    gpioInitialise();
+    /*gpioInitialise();
     gpioSetMode(PIN, PI_OUTPUT);
     gpioWrite(PIN, 1);
     getchar();
-   gpioWrite(PIN, 0);
+    gpioWrite(PIN, 0);
     getchar();
-    gpioTerminate();
+    gpioTerminate();*/
 
     double avg;
     int TempCache[READING_COUNT];
@@ -87,11 +87,9 @@ int main()
     printf("Enter temperature in Farrenheit:");
     getReadings(readings, READING_COUNT);
 
-	isOutOfRange(readings, max, min, READING_COUNT, TempCache);
+    isOutOfRange(readings, max, min, READING_COUNT, TempCache);
 
-    tempAvg(readings, READING_COUNT, avg);
-    printf("\n avg%lf",avg);
-    
+    avg = tempAvg(readings, READING_COUNT, 0);
     
     //checkReadings(readings, READING_COUNT, max, min);
 
