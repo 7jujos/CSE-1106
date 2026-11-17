@@ -7,8 +7,8 @@
 
 void checkReadings(double readings[], int count, double max, double min);
 void getReadings(double readings[], int count);
-int isOutOfRange(double readings[], double max, int count, int TempCache[]);
-double getMaxMin(double max, double min);
+int isOutOfRange(double readings[], double max, double min, int count, int TempCache[]);
+
 
 
 void getReadings(double readings[], int count)
@@ -20,7 +20,7 @@ void getReadings(double readings[], int count)
     }
 }
 
-int isOutOfRange(double readings[], double max, int count, int TempCache[])
+int isOutOfRange(double readings[], double max, double min, int count, int TempCache[])
 {
 	for (int i = 0; i < count; i++)
 	{
@@ -29,6 +29,12 @@ int isOutOfRange(double readings[], double max, int count, int TempCache[])
 			TempCache[i] = 1;
 			printf("%d\n",TempCache[i]); //t
 		}
+        else if (readings[i] < min)
+        {
+			TempCache[i] = 2;
+			printf("%d\n",TempCache[i]); //t
+		}
+        
 		else 
 			{TempCache[i] = 0;
 			printf("%d\n",TempCache[i]);} //t
@@ -51,18 +57,19 @@ void checkReadings(double readings[], int count, double max, double min)
     }
 }
 */
-double getMaxMin(double max, double min)
+double getMaxMin(double *max,double *min)
 {
-    printf("Enter maximum temperature: ");
-    scanf("%lf", &max);
-    printf("Enter minimum temperature: ");
-    scanf("%lf", &min);
-    printf("%lf\n",max);
-    return max, min;
     
+    printf("Enter maximum temperature: ");
+    scanf("%lf", max);
+    printf("Enter minimum temperature: ");
+    scanf("%lf", min);
+    printf("%lf\n",max);
+    return 0;
 }
 
-int main(int argc, char *argv[])
+
+int main()
 {
 
     //gpioInitialise();
@@ -73,17 +80,22 @@ int main(int argc, char *argv[])
     //getchar();
     //gpioTerminate();
 
-    double max, min = getMaxMin(max, min);
+    double max, min;
+    getMaxMin(&max,&min);
+    printf("Min%lf\n",min);
+    printf("Max%lf\n",max);
+    
+    
     int TempCache[READING_COUNT];
     double readings[READING_COUNT];
     
     
-    printf("%lf\n",max);
+    
 
     printf("Enter temperature in Farrenheit:");
     getReadings(readings, READING_COUNT);
 
-	isOutOfRange(readings, max, READING_COUNT, TempCache);
+	isOutOfRange(readings, max, min, READING_COUNT, TempCache);
 
 
     //checkReadings(readings, READING_COUNT, max, min);
