@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <unistd.h>
-//#include <pigpio.h>
+#include <pigpio.h>
 #define PIN 17
 #define READING_COUNT 5
 
@@ -41,22 +41,6 @@ int isOutOfRange(double readings[], double max, double min, int count, int TempC
 	}
 }
 
-/*
-void checkReadings(double readings[], int count, double max, double min)
-{
-    for (int i = 0; i < count; i++)
-    {
-        if (isOutOfRange(readings[i], max, min,))
-        {
-            printf("Reading %f is out of range.\n", readings[i]);
-        }
-        else
-        {
-            printf("Reading %f is within range.\n", readings[i]);
-        }
-    }
-}
-*/
 double getMaxMin(double *max,double *min)
 {
     
@@ -68,36 +52,47 @@ double getMaxMin(double *max,double *min)
     return 0;
 }
 
+double tempAvg(double readings[], int count, double avg)
+{
+    for (int i = 0; i < count; i++)
+    
+    avg += readings[i];
+    avg/=count;
+    
+    
+    printf("\n avg%lf",avg);
+    return avg;
+}
+
 
 int main()
 {
 
-    //gpioInitialise();
-    //gpioSetMode(PIN, PI_OUTPUT);
-    //gpioWrite(PIN, 1);
-    //getchar();
-   //gpioWrite(PIN, 0);
-    //getchar();
-    //gpioTerminate();
+    gpioInitialise();
+    gpioSetMode(PIN, PI_OUTPUT);
+    gpioWrite(PIN, 1);
+    getchar();
+   gpioWrite(PIN, 0);
+    getchar();
+    gpioTerminate();
 
+    double avg;
+    int TempCache[READING_COUNT];
+    double readings[READING_COUNT];
     double max, min;
     getMaxMin(&max,&min);
     printf("Min%lf\n",min);
     printf("Max%lf\n",max);
-    
-    
-    int TempCache[READING_COUNT];
-    double readings[READING_COUNT];
-    
-    
-    
 
     printf("Enter temperature in Farrenheit:");
     getReadings(readings, READING_COUNT);
 
 	isOutOfRange(readings, max, min, READING_COUNT, TempCache);
 
-
+    tempAvg(readings, READING_COUNT, avg);
+    printf("\n avg%lf",avg);
+    
+    
     //checkReadings(readings, READING_COUNT, max, min);
 
     return 0;
