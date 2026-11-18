@@ -1,0 +1,5 @@
+I primarily worked on the Pigpio setup aswell as the functions that run the majority of the program.
+My personal most challenging problem was simply forgetting how to store values from a function to main.
+In debugging the issue, I primarily used printf() statments within and directly after functions to find when and where data was being lost.
+working with the RPI's basic editor was what I did a lot in debugging the PigPio functions, and I learned a lot of that in CSE1106
+If I had more time, I'd have liked to organize and optimize the code a bit more.
